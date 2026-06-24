@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OmniDocenteCore SaaS</title>
+</head>
+<body>
+
+<h1>📚 OmniDocenteCore - Plataforma Final</h1>
+
+<input id="topic" placeholder="Tema">
+
+<button onclick="lesson()">IA Clase</button>
+<button onclick="exam()">IA Examen</button>
+
+<pre id="out"></pre>
+
+<script>
+async function lesson(){
+    let topic = document.getElementById("topic").value;
+
+    let res = await fetch("/ai/lesson", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({topic})
+    });
+
+    document.getElementById("out").innerText =
+        JSON.stringify(await res.json(), null, 2);
+}
+
+async function exam(){
+    let topic = document.getElementById("topic").value;
+
+    let res = await fetch("/ai/exam", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({topic})
+    });
+
+    document.getElementById("out").innerText =
+        JSON.stringify(await res.json(), null, 2);
+}
+</script>
+
+</body>
+</html>
